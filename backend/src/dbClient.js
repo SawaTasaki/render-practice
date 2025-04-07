@@ -11,11 +11,16 @@ const client = new Client({
 
 // client.connect();
 
+const dropTablesQuery = `
+  DROP TABLE IF EXISTS ai_tools;
+  DROP TABLE IF EXISTS users;
+`;
+
 // ai_tools テーブルの作成
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS ai_tools (
       ai_tool_id SERIAL PRIMARY KEY,
-      tool_name VARCHAR(255) NOT NULL,
+      tool_name VARCHAR(255) NOT NULL UNIQUE,
       company VARCHAR(255) NOT NULL
   );
 `;
@@ -29,6 +34,7 @@ const insertDataQuery = `
   ('Claude', 'Anthropic'),
   ('Devin', 'Cogintion'),
   ('Cursor', 'Anysphere');
+  ON CONFLICT (tool_name) DO NOTHING;
 `;
 
 // users テーブルの作成
@@ -47,11 +53,16 @@ const insertUsersDataQuery = `
   ('user1@example.com', 'password123', ARRAY[1, 2]),
   ('user2@example.com', 'password123', ARRAY[3, 4]),
   ('user3@example.com', 'password123', ARRAY[5, 6, 1]);
+  ON CONFLICT (email) DO NOTHING;
 `;
 
 try {
   await client.connect();
 
+  // テーブル削除
+  await client.query(dropTablesQuery);
+  console.log("既存のテーブルが削除されました。");
+  
   // テーブル作成
   await client.query(createTableQuery);
   console.log("ai_toolsテーブルの作成が完了しました。");
@@ -67,7 +78,12 @@ try {
   // 初期データの挿入
   await client.query(insertUsersDataQuery);
   console.log("初期データの挿入が完了しました。");
-  
+
+  const result1 = await client.query("SELECT * FROM ai_tools");
+  console.log("ai_toolsテーブルのデータ:", result1.rows);
+  const result2 = await client.query("SELECT * FROM users");
+  console.log("usersテーブルのデータ:", result2.rows);
+
 } catch (err) {
   console.error("エラーが発生しました:", err);
 } finally {
