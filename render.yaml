@@ -6,6 +6,8 @@ services:
     runtime: docker
     dockerfilePath: ./backend/Dockerfile
     envVars:
+      - key: PORT
+        value: ${PORT}
   # DB
   - type: web
     name: sample_app_frontend
