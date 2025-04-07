@@ -25,7 +25,7 @@ services:
     runtime: docker
     dockerfilePath: ./frontend/Dockerfile
    # DB
-  - type: pserv
+  - type: web
     name: sample_app_db
     plan: free
     runtime: docker
