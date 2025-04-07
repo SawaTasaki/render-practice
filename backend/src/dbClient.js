@@ -1,4 +1,5 @@
-const { Client } = require("pg");
+import pkg from "pg";
+const { Client } = pkg;
 
 // 環境変数からデータベースURLを取得
 const client = new Client({
