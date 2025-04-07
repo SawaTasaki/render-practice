@@ -84,8 +84,6 @@ try {
 
 } catch (err) {
   console.error("エラーが発生しました:", err);
-} finally {
-  await client.end();
 }
 
 export default client;
