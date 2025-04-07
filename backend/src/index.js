@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
+import client from './dbClient.js'; 
+import getData from './handlers/getdata.js';
+
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -13,6 +16,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 const dummyData = [
   { id: 1, tool_name: "AI Tool 1", company: "Company A" },
@@ -28,6 +32,8 @@ app.get("/", (req, res) => {
 app.get("/showdata", (req, res) => {
   res.json(dummyData);
 });
+
+app.get("/getdata", (req, res) => getData(client, req, res));
 
 app.listen(PORT, () => {
   console.log(`サーバーはポート ${PORT} で動作しています`);
