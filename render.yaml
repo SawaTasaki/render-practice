@@ -30,10 +30,6 @@ services:
     plan: free
     runtime: docker
     dockerfilePath: ./db/Dockerfile
-    disk:
-      name: postgresql
-      mountPath: /var/lib/postgresql/data
-      sizeGB: 10
     envVars:
       - key: POSTGRES_USER
         value: ${POSTGRES_USER}
