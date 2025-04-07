@@ -1,5 +1,6 @@
 const getData = async (client, req, res) => {
   try {
+    await client.connect();
     const result = await client.query("SELECT * FROM ai_tools");
     if (result.rows.length > 0) {
       return res.json(result.rows);
