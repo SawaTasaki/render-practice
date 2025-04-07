@@ -1,5 +1,5 @@
 services:
-  # Web server
+  # backend
   - type: web
     name: sample_app_backend
     plan: free
@@ -8,9 +8,22 @@ services:
     envVars:
       - key: PORT
         value: ${PORT}
-  # DB
+  # frontend
   - type: web
     name: sample_app_frontend
     plan: free
     runtime: docker
     dockerfilePath: ./frontend/Dockerfile
+   # DB
+  - type: pserv
+    name: sample_app_db
+    plan: free
+    runtime: docker
+    dockerfilePath: ./deploy/db/Dockerfile
+    dockerContext: ./deploy/db/
+    disk:
+      name: mysql
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      # 必要な環境変数の設定
