@@ -1,0 +1,14 @@
+services:
+  # Web server
+  - type: web
+    name: sample_app_backend
+    plan: free
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+  # DB
+  - type: web
+    name: sample_app_frontend
+    plan: free
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
