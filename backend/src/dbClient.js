@@ -34,7 +34,6 @@ const insertDataQuery = `
   ('Claude', 'Anthropic'),
   ('Devin', 'Cogintion'),
   ('Cursor', 'Anysphere');
-  ON CONFLICT (tool_name) DO NOTHING;
 `;
 
 // users テーブルの作成
@@ -53,7 +52,6 @@ const insertUsersDataQuery = `
   ('user1@example.com', 'password123', ARRAY[1, 2]),
   ('user2@example.com', 'password123', ARRAY[3, 4]),
   ('user3@example.com', 'password123', ARRAY[5, 6, 1]);
-  ON CONFLICT (email) DO NOTHING;
 `;
 
 try {
@@ -62,7 +60,7 @@ try {
   // テーブル削除
   await client.query(dropTablesQuery);
   console.log("既存のテーブルが削除されました。");
-  
+
   // テーブル作成
   await client.query(createTableQuery);
   console.log("ai_toolsテーブルの作成が完了しました。");
