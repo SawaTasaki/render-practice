@@ -35,9 +35,9 @@ services:
       mountPath: /var/lib/postgresql/data
       sizeGB: 10
     envVars:
-      -key: POSTGRES_USER
+      - key: POSTGRES_USER
         value: ${POSTGRES_USER}
-      -key: POSTGRES_PASSWORD
+      - key: POSTGRES_PASSWORD
         value: ${POSTGRES_PASSWORD}
-      -key: POSTGRES_DB 
+      - key: POSTGRES_DB 
         value: ${POSTGRES_DB}
