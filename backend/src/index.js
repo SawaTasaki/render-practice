@@ -1,9 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
+
+const corsOptions = {
+  origin: "https://sample-app-frontend.onrender.com", // フロントエンドのドメインを指定
+  methods: ["GET", "POST"], // 許可するHTTPメソッド
+  allowedHeaders: ["Content-Type", "Authorization"], // 許可するヘッダ
+};
+
+app.use(cors(corsOptions));
 
 const dummyData = [
   { id: 1, tool_name: "AI Tool 1", company: "Company A" },
